@@ -92,30 +92,36 @@
 #include <iostream>
 
 #include "HashMap.h"
+#include "GeoDatabase.h"
+
+//int main() {
+//    HashMap<std::string> h;
+//    h.insert("Maia", "Smolyanov");
+//    h.insert("Alex", "Smolyanov");
+//    h.insert("Elena", "Smolyanov");
+//    h.insert("Alex", ":)");
+//    h.insert("hi", ":)");
+//    h.insert("hey", ":)");
+//    h.insert("yay", ":)");
+//    h.insert("lol", ":)");
+//    h.insert("banana", ":)");
+//    h.insert("a", ":)");
+//    h.insert("b", ":)");
+//    h.insert("c", ":)");
+//    h.insert("d", ":)");
+//    assert(*h.find("Maia") == "Smolyanov");
+//    assert(h.find("Foo") == nullptr);
+//    assert(*h.find("Alex") == ":)");
+//    assert(h["Maia"] == "Smolyanov");
+//    assert(h["x"] == "");
+//    assert(*h.find("x") == "");
+//    h["x"] = "hello";
+//    assert(*h.find("x") == "hello");
+//
+//    std::cerr << "Tests passed" << std::endl;
+//}
 
 int main() {
-    HashMap<std::string> h;
-    h.insert("Maia", "Smolyanov");
-    h.insert("Alex", "Smolyanov");
-    h.insert("Elena", "Smolyanov");
-    h.insert("Alex", ":)");
-    h.insert("hi", ":)");
-    h.insert("hey", ":)");
-    h.insert("yay", ":)");
-    h.insert("lol", ":)");
-    h.insert("banana", ":)");
-    h.insert("a", ":)");
-    h.insert("b", ":)");
-    h.insert("c", ":)");
-    h.insert("d", ":)");
-    assert(*h.find("Maia") == "Smolyanov");
-    assert(h.find("Foo") == nullptr);
-    assert(*h.find("Alex") == ":)");
-    assert(h["Maia"] == "Smolyanov");
-    assert(h["x"] == "");
-    assert(*h.find("x") == "");
-    h["x"] = "hello";
-    assert(*h.find("x") == "hello");
-    
-    std::cerr << "Tests passed" << std::endl;
+    GeoDatabase gdb;
+    gdb.load("/Users/maiasmolyanov/Documents/CS_32/Project_4/Project_4/mapdata.txt");
 }
