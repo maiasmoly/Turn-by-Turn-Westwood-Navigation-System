@@ -111,6 +111,11 @@ int main() {
     assert(*h.find("Maia") == "Smolyanov");
     assert(h.find("Foo") == nullptr);
     assert(*h.find("Alex") == ":)");
+    assert(h["Maia"] == "Smolyanov");
+    assert(h["x"] == "");
+    assert(*h.find("x") == "");
+    h["x"] = "hello";
+    assert(*h.find("x") == "hello");
     
     std::cerr << "Tests passed" << std::endl;
 }

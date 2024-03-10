@@ -136,10 +136,12 @@ void HashMap<T>::insert(const std::string& key, const T& value) {
 // If the key does not exist in the hashmap, this will create a new entry in // the hashmap and map it to the default value of type T (0 for builtin types). // It returns a reference to the newly created value in the map.
 template<typename T>
 T& HashMap<T>::operator[](const std::string& key) {
-    
-    
-    
-
+    T* found = find(key);
+    if (found != nullptr) {
+        return *found;
+    }
+    insert(key, T());
+    return *find(key);
 }
 
 // If no association exists with the given key, return nullptr; otherwise,
