@@ -72,7 +72,7 @@ HashMap<T>::HashMap(int n_buckets, double max_load) {
 
 template<typename T>
 HashMap<T>::~HashMap() {
-    //TODO: delete all association in hashmap
+    
 }
 
 template<typename T>

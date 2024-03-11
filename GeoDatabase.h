@@ -9,6 +9,7 @@
 #define GeoDatabase_h
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "base_classes.h"
 #include "HashMap.h"
 #include "geopoint.h"
@@ -28,7 +29,11 @@ public:
      const GeoPoint& pt2) const;
     
 private:
+    void splitPOIEntry(std::string& entry, std::string& name, GeoPoint& gp);
+    void splitEndPointsEntry(std::string& entry, GeoPoint& gp1, GeoPoint& gp2);
     HashMap<GeoPoint> m_poiByName;
+    HashMap<std::vector<GeoPoint>> m_connectedPoints;
+    HashMap<std::string> m_streetsByMidpoint;
     
     
 };
