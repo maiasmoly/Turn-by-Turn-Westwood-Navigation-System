@@ -1,5 +1,5 @@
 #include <sstream>
-#include "GeoDatabase.h"
+#include "geodb.h"
 #include "geotools.h"
 
 
@@ -45,6 +45,12 @@ bool GeoDatabase::load(const std::string& map_data_file) {
                 m_connectedPoints[gp2.to_string()].push_back(midPoint);
                 m_connectedPoints[midPoint.to_string()].push_back(gp2);
                 m_connectedPoints[midPoint.to_string()].push_back(gp1);
+                
+                // Also we want to find any steet by its part (pt->midpoint), so index by
+                // quarter-points too.
+                m_streetsByMidpoint[midpoint(gp1, midPoint).to_string()] = streetName;
+                m_streetsByMidpoint[midpoint(gp2, midPoint).to_string()] = streetName;
+
                 
                 for (int i = 0; i < numPOIs; ++i) {
                     //read each POI for the entry
