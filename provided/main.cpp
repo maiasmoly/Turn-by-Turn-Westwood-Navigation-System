@@ -94,6 +94,8 @@
 #include "HashMap.h"
 #include "GeoDatabase.h"
 
+#include "Router.h"
+
 //int main() {
 //    HashMap<std::string> h;
 //    h.insert("Maia", "Smolyanov");
@@ -121,23 +123,38 @@
 //    std::cerr << "Tests passed" << std::endl;
 //}
 
+//int main() {
+//    GeoDatabase gdb;
+//    gdb.load("/Users/maiasmolyanov/Documents/CS_32/Project_4/Project_4/mapdata.txt");
+//    GeoPoint gp;
+//    if (gdb.get_poi_location("Saint Sebastian School", gp)) {
+//        std::cerr << "Loc is: " << gp.to_string() << std::endl;
+//    } else {
+//        std::cerr << "none found" << std::endl;
+//    }
+//
+//    std::vector<GeoPoint> points = gdb.get_connected_points(gp); //GeoPoint("34.0555356","-118.4798135"));
+//    for (GeoPoint& p : points) {
+//        std::cerr << "  Connected to: "<< p.to_string() << std::endl;
+//    }
+//    std::string street = gdb.get_street_name(GeoPoint("34.0469479", "-118.3754206"),
+//                                             GeoPoint("34.0468506", "-118.3749202")
+//                                             );
+//    std::cerr << "  Street is " << street << std::endl;
+//
+//}
+
 int main() {
     GeoDatabase gdb;
     gdb.load("/Users/maiasmolyanov/Documents/CS_32/Project_4/Project_4/mapdata.txt");
-    GeoPoint gp;
-    if (gdb.get_poi_location("Saint Sebastian School", gp)) {
-        std::cerr << "Loc is: " << gp.to_string() << std::endl;
-    } else {
-        std::cerr << "none found" << std::endl;
-    }
     
-    std::vector<GeoPoint> points = gdb.get_connected_points(gp); //GeoPoint("34.0555356","-118.4798135"));
-    for (GeoPoint& p : points) {
-        std::cerr << "  Connected to: "<< p.to_string() << std::endl;
-    }
-    std::string street = gdb.get_street_name(GeoPoint("34.0469479", "-118.3754206"),
-                                             GeoPoint("34.0468506", "-118.3749202")
-                                             );
-    std::cerr << "  Street is " << street << std::endl;
+    GeoPoint point1("34.0560093", "-118.4134257");
+    GeoPoint point2("34.0583886", "-118.4443290");
     
+    Router router(gdb);
+    std::vector<GeoPoint> path = router.route(point1, point2);
+    std::cerr << "Found a path of " << path.size() << " points" << std::endl;
+    for (GeoPoint p : path) {
+        std::cerr << " goto: " << p.to_string() << std::endl;
+    }
 }

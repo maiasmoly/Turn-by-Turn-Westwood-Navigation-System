@@ -41,7 +41,6 @@ bool GeoDatabase::load(const std::string& map_data_file) {
             //dealing with number of pois in this street segment
             numPOIs = std::stod(line);
             if (numPOIs > 0) {
-               
                 m_connectedPoints[gp1.to_string()].push_back(midPoint);
                 m_connectedPoints[gp2.to_string()].push_back(midPoint);
                 m_connectedPoints[midPoint.to_string()].push_back(gp2);
@@ -108,7 +107,7 @@ void GeoDatabase::splitPOIEntry(std::string& entry, std::string& name, GeoPoint&
             nameofPOI = entry.substr(0, i);
             for (int j = i; j < entry.size(); j++) {
                 if (entry[j] == ' ') {
-                    lat = entry.substr(i + 1, j - i);
+                    lat = entry.substr(i + 1, j - i - 1);
                     lon = entry.substr(j + 1);
                 }
             }
@@ -117,7 +116,7 @@ void GeoDatabase::splitPOIEntry(std::string& entry, std::string& name, GeoPoint&
     }
     name = nameofPOI;
     gp = GeoPoint(lat, lon);
-    
+    // std::cerr << "POI " << name << ": [" << gp.to_string() << "]" << std::endl;
 }
 
 void GeoDatabase::splitEndPointsEntry(std::string& entry, GeoPoint& gp1, GeoPoint& gp2) {
