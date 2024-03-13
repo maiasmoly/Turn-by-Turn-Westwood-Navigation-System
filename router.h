@@ -9,6 +9,7 @@
 #define Router_h
 
 #include "base_classes.h"
+#include <vector>
 
 class Router: public RouterBase
 {

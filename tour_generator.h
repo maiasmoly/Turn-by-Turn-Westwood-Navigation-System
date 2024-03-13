@@ -9,6 +9,7 @@
 #define TourGenerator_h
 
 #include "base_classes.h"
+#include <vector>
 
 class TourGenerator: public TourGeneratorBase
 {

@@ -8,6 +8,7 @@
 #include "tour_generator.h"
 #include "geotools.h"
 
+//calculates which direction (NSEW) an angle points
 std::string GetDirection(const GeoPoint& from, const GeoPoint& to) {
     double angle = angle_of_line(from, to);
     
@@ -23,6 +24,7 @@ std::string GetDirection(const GeoPoint& from, const GeoPoint& to) {
     else return "UNKNOWN";
 }
 
+//Calculates which direction a turn should be made based on the angle between streets
 std::string GetTurnDirection(double angle) {
     if (angle < 180) {
         return "left";
@@ -31,10 +33,10 @@ std::string GetTurnDirection(double angle) {
     }
 }
 
+//returns name of street from Geodatabase, accounting for "a path" if the street does not have a name associated with it.
 std::string GetStreetName(const GeoDatabaseBase& m_geodb,
                           const GeoPoint& from, const GeoPoint& to) {
-    // TODO: this may not work for every segment, e.g. for a segment from
-    // a midpoint to the POI (the last one)
+    
     std::string street = m_geodb.get_street_name(from, to);
     if (street.empty()) {
         return "a path";
@@ -43,16 +45,18 @@ std::string GetStreetName(const GeoDatabaseBase& m_geodb,
 }
 
 
-
+// generate tour implememntation
 std::vector<TourCommand> TourGenerator::generate_tour(const Stops& stops) const {
     std::vector<TourCommand> commands;
     
+    // If one of the stops from the file has an invalid point of interest, return
     for (int i = 0; i < stops.size(); ++i) {
         std::string poi, talking_points;
         if (!stops.get_poi_data(i, poi, talking_points)) {
             std::cerr << "Error: can not find POI " << i << std::endl;
             return std::vector<TourCommand>();
         }
+        
         // Create a commentary command for each POI.
         TourCommand commentary;
         commentary.init_commentary(poi, talking_points);
@@ -62,6 +66,7 @@ std::vector<TourCommand> TourGenerator::generate_tour(const Stops& stops) const 
         if (!stops.get_poi_data(i + 1, next_poi, talking_points)) {
             break;
         }
+        
         // Find the GeoPoint of the next POI and a route to it.
         GeoPoint poi_point;
         GeoPoint next_poi_point;
